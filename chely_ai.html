@@ -1,0 +1,2380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Chely AI — Illuminated Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ======================================================
+     CHELY AI — DESIGN SYSTEM
+     ====================================================== */
+  :root {
+    --surface: #131314;
+    --surface-bright: #3a393a;
+    --sc-lowest: #0e0e0f;
+    --sc-low: #1c1b1c;
+    --sc: #201f20;
+    --sc-high: #2a2a2b;
+    --sc-highest: #353436;
+    --on-surface: #e5e2e3;
+    --on-surface-var: #d5c4ab;
+    --outline: #9e8f78;
+    --outline-var: #514532;
+    --primary: #ffba20;
+    --primary-soft: #ffdca1;
+    --on-primary: #412d00;
+    --primary-container: #ffb800;
+    --secondary: #b9c7df;
+    --secondary-container: #3c4a5e;
+    --tertiary: #abebff;
+    --tertiary-container: #00d7fe;
+    --error: #ffb4ab;
+    --error-container: #93000a;
+    --on-error-container: #ffdad6;
+    --background: #050505;
+    --bg-deep: #050505;
+    --glass-bg: rgba(20, 20, 22, 0.7);
+    --amber-glow: 0 8px 32px rgba(255, 184, 0, 0.18);
+    --amber-glow-strong: 0 0 40px rgba(255, 184, 0, 0.35);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--bg-deep);
+    color: var(--on-surface);
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  body { min-height: 100vh; overflow-x: hidden; }
+
+  .display, .display-lg { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; }
+  .mono-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--outline);
+  }
+
+  a { color: var(--primary); text-decoration: none; transition: color 200ms ease-out; }
+  a:hover { color: var(--primary-soft); }
+
+  button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+  input, textarea, select { font-family: inherit; color: var(--on-surface); }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: all 200ms ease-out;
+    border: 1px solid transparent;
+  }
+  .btn-primary {
+    background: var(--primary-container);
+    color: var(--on-primary);
+    box-shadow: var(--amber-glow);
+  }
+  .btn-primary:hover:not(:disabled) {
+    background: var(--primary);
+    box-shadow: var(--amber-glow-strong);
+    transform: translateY(-1px);
+  }
+  .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
+  .btn-ghost {
+    background: transparent;
+    color: var(--on-surface);
+    border-color: var(--outline-var);
+  }
+  .btn-ghost:hover { border-color: var(--outline); background: var(--sc-low); }
+  .btn-danger {
+    background: transparent; color: var(--error); border-color: var(--error-container);
+  }
+  .btn-danger:hover { background: var(--error-container); color: var(--on-error-container); }
+  .btn-lg { padding: 18px 32px; font-size: 14px; }
+  .btn-block { width: 100%; }
+
+  /* Inputs */
+  .field { display: flex; flex-direction: column; gap: 8px; }
+  .field-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--outline);
+  }
+  .input, .textarea, .select {
+    background: var(--sc-lowest);
+    border: 1px solid var(--outline-var);
+    border-radius: 6px;
+    padding: 14px 16px;
+    color: var(--on-surface);
+    font-size: 14px;
+    transition: all 200ms ease-out;
+    width: 100%;
+  }
+  .input:focus, .textarea:focus, .select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(255, 184, 0, 0.12);
+  }
+  .textarea { resize: vertical; min-height: 200px; font-family: 'Space Grotesk', monospace; font-size: 13px; line-height: 1.7; }
+
+  /* Cards */
+  .card {
+    background: var(--sc-low);
+    border: 1px solid var(--outline-var);
+    border-radius: 12px;
+    padding: 24px;
+  }
+  .card-glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--outline-var);
+    border-radius: 12px;
+    padding: 24px;
+  }
+
+  /* ======================================================
+     AUTH SHELL (login, signup, landing)
+     ====================================================== */
+  .auth-shell {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(255, 184, 0, 0.06), transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(63, 193, 201, 0.04), transparent 40%),
+      var(--bg-deep);
+  }
+  .auth-brand {
+    margin-bottom: 32px;
+    text-align: center;
+  }
+  .auth-brand h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 36px;
+    letter-spacing: -0.02em;
+  }
+  .auth-brand h1 .a { color: var(--primary); }
+  .auth-brand .tagline {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--outline);
+    text-transform: uppercase;
+    margin-top: 8px;
+  }
+  .auth-card {
+    width: 100%;
+    max-width: 440px;
+    padding: 40px;
+  }
+  .auth-card h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .auth-card .sub {
+    color: var(--on-surface-var);
+    margin-bottom: 32px;
+    font-size: 14px;
+    opacity: 0.7;
+  }
+  .auth-card .field + .field { margin-top: 16px; }
+  .auth-card .submit { margin-top: 24px; }
+  .auth-card .switch {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 13px;
+    color: var(--outline);
+  }
+  .auth-card .switch a { font-weight: 500; }
+
+  .landing-hero {
+    text-align: center;
+    max-width: 600px;
+  }
+  .landing-hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(40px, 8vw, 72px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 24px;
+  }
+  .landing-hero h1 .a { color: var(--primary); }
+  .landing-hero .lead {
+    font-size: 18px;
+    color: var(--on-surface-var);
+    opacity: 0.85;
+    margin-bottom: 40px;
+  }
+  .landing-hero .actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .landing-features {
+    margin-top: 80px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    max-width: 800px;
+  }
+  .feature {
+    text-align: left;
+    padding: 20px;
+    background: var(--sc-low);
+    border: 1px solid var(--outline-var);
+    border-radius: 8px;
+  }
+  .feature .num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    color: var(--primary);
+    letter-spacing: 0.12em;
+    margin-bottom: 8px;
+  }
+  .feature h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px;
+    margin-bottom: 6px;
+  }
+  .feature p { font-size: 13px; color: var(--outline); }
+
+  /* ======================================================
+     APP SHELL (sidebar + main)
+     ====================================================== */
+  .app-shell {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: 100vh;
+  }
+  @media (max-width: 768px) {
+    .app-shell { grid-template-columns: 1fr; }
+    .sidebar { display: none !important; }
+    .sidebar.open { display: flex !important; position: fixed; inset: 0; z-index: 100; width: 100%; }
+  }
+
+  .sidebar {
+    background: var(--sc-lowest);
+    border-right: 1px solid var(--outline-var);
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  .sidebar-brand {
+    padding: 24px;
+    border-bottom: 1px solid var(--outline-var);
+  }
+  .sidebar-brand h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .sidebar-brand h2 .a { color: var(--primary); }
+  .sidebar-brand .sub {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--outline);
+    margin-top: 4px;
+  }
+  .sidebar-nav {
+    flex: 1;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 6px;
+    color: var(--outline);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: all 200ms ease-out;
+    cursor: pointer;
+    position: relative;
+  }
+  .nav-item:hover {
+    background: var(--sc-low);
+    color: var(--on-surface);
+  }
+  .nav-item.active {
+    background: rgba(255, 184, 0, 0.08);
+    color: var(--primary);
+  }
+  .nav-item.active::before {
+    content: '';
+    position: absolute;
+    right: -16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 60%;
+    background: var(--primary);
+    border-radius: 2px;
+  }
+  .nav-item .icon { width: 18px; height: 18px; flex-shrink: 0; }
+  .sidebar-footer {
+    padding: 16px;
+    border-top: 1px solid var(--outline-var);
+  }
+
+  .main { display: flex; flex-direction: column; min-height: 100vh; min-width: 0; }
+  .topbar {
+    height: 64px;
+    border-bottom: 1px solid var(--outline-var);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    background: rgba(20, 20, 22, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .topbar-left { display: flex; align-items: center; gap: 16px; }
+  .topbar-mobile-toggle {
+    display: none;
+    width: 36px; height: 36px;
+    align-items: center; justify-content: center;
+    background: var(--sc-low);
+    border: 1px solid var(--outline-var);
+    border-radius: 6px;
+    font-size: 18px;
+  }
+  @media (max-width: 768px) { .topbar-mobile-toggle { display: flex; } }
+  .topbar-mobile-brand {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    display: none;
+  }
+  @media (max-width: 768px) { .topbar-mobile-brand { display: block; } }
+  .topbar-mobile-brand .a { color: var(--primary); }
+  .topbar-right {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .user-chip {
+    display: flex; align-items: center; gap: 10px;
+    padding: 6px 12px 6px 6px;
+    background: var(--sc-low);
+    border: 1px solid var(--outline-var);
+    border-radius: 99px;
+    font-size: 13px;
+  }
+  .user-avatar {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--primary-container);
+    color: var(--on-primary);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+  }
+  .user-status {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    border-radius: 4px;
+  }
+  .user-status.unpaid { background: rgba(255, 180, 171, 0.1); color: var(--error); }
+  .user-status.pending { background: rgba(171, 235, 255, 0.1); color: var(--tertiary); }
+  .user-status.paid { background: rgba(255, 184, 0, 0.1); color: var(--primary); }
+  .user-status.admin { background: var(--primary-container); color: var(--on-primary); }
+
+  .content {
+    flex: 1;
+    padding: 40px;
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  @media (max-width: 768px) { .content { padding: 24px 16px; } }
+
+  /* ======================================================
+     PAGE: APP / FOOTAGE FINDER
+     ====================================================== */
+  .page-hero {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .page-hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(40px, 6vw, 60px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    margin-bottom: 16px;
+  }
+  .page-hero h1 .a { color: var(--primary); }
+  .page-hero p {
+    color: var(--on-surface-var);
+    opacity: 0.8;
+    max-width: 540px;
+    margin: 0 auto;
+  }
+
+  .section {
+    margin-bottom: 24px;
+  }
+  .section-card {
+    background: var(--sc-low);
+    border: 1px solid var(--outline-var);
+    border-radius: 12px;
+    padding: 24px;
+  }
+  .section-head {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap; gap: 8px;
+  }
+  .section-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--primary);
+    cursor: pointer;
+  }
+
+  .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 768px) { .row-2 { grid-template-columns: 1fr; } }
+  .row-script { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; }
+  @media (max-width: 900px) { .row-script { grid-template-columns: 1fr; } }
+
+  /* AI engine / provider toggle */
+  .provider-toggle {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+    margin-bottom: 16px;
+  }
+  .provider-btn {
+    padding: 16px;
+    background: var(--sc-lowest);
+    border: 1px solid var(--outline-var);
+    border-radius: 8px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--on-surface-var);
+    transition: all 200ms ease-out;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .provider-btn:hover { border-color: var(--outline); }
+  .provider-btn.active {
+    background: var(--primary-container);
+    color: var(--on-primary);
+    border-color: var(--primary);
+    box-shadow: 0 0 24px rgba(255, 184, 0, 0.2);
+  }
+
+  /* Stepper */
+  .stepper-wrap {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    height: 100%; gap: 16px;
+    padding: 24px 16px;
+  }
+  .stepper-btn {
+    width: 44px; height: 44px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--sc-lowest);
+    border: 1px solid var(--outline-var);
+    border-radius: 8px;
+    color: var(--on-surface);
+    font-size: 20px;
+    transition: all 200ms ease-out;
+  }
+  .stepper-btn:hover { border-color: var(--primary); color: var(--primary); }
+  .stepper-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--on-surface);
+    background: transparent;
+    border: none;
+    text-align: center;
+    width: 100%;
+    -moz-appearance: textfield;
+  }
+  .stepper-num::-webkit-outer-spin-button,
+  .stepper-num::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .stepper-num:focus { outline: none; color: var(--primary); }
+  .stepper-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--outline);
+    text-align: center;
+  }
+
+  /* Source library cards */
+  .sites-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+  }
+  .site-card {
+    background: var(--sc-lowest);
+    border: 1px solid var(--outline-var);
+    border-radius: 8px;
+    padding: 14px;
+    display: flex; align-items: center; gap: 12px;
+    transition: all 200ms ease-out;
+    cursor: pointer;
+    text-align: left;
+  }
+  .site-card:hover { border-color: var(--outline); }
+  .site-card.on {
+    background: rgba(255, 184, 0, 0.06);
+    border-color: var(--primary);
+  }
+  .site-card .ic {
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--sc);
+    border-radius: 6px;
+    color: var(--outline);
+    flex-shrink: 0;
+  }
+  .site-card.on .ic { background: rgba(255, 184, 0, 0.12); color: var(--primary); }
+  .site-card .info { flex: 1; min-width: 0; }
+  .site-card .name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--on-surface);
+  }
+  .site-card .stat {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--outline);
+    margin-top: 2px;
+  }
+  .site-card.on .stat { color: var(--primary); }
+
+  /* Find Footage button */
+  .run-section {
+    margin-top: 8px;
+    margin-bottom: 32px;
+    padding: 0 16px;
+  }
+  .run-btn {
+    width: 100%;
+    padding: 24px;
+    background: var(--primary-container);
+    color: var(--on-primary);
+    border: 1px solid var(--primary);
+    border-radius: 10px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    transition: all 200ms ease-out;
+    box-shadow: 0 0 60px rgba(255, 184, 0, 0.25);
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+  }
+  .run-btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 0 80px rgba(255, 184, 0, 0.4);
+  }
+  .run-btn:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
+
+  .spinner {
+    width: 16px; height: 16px;
+    border: 2px solid rgba(0,0,0,0.15);
+    border-top-color: var(--on-primary);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  .spinner.light { border-color: rgba(255,255,255,0.15); border-top-color: var(--primary); }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Error / Notice boxes */
+  .alert {
+    padding: 16px 20px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    display: flex; align-items: flex-start; gap: 12px;
+  }
+  .alert-error {
+    background: rgba(255, 180, 171, 0.08);
+    border: 1px solid var(--error-container);
+    color: var(--error);
+  }
+  .alert-info {
+    background: rgba(171, 235, 255, 0.08);
+    border: 1px solid rgba(171, 235, 255, 0.3);
+    color: var(--tertiary);
+  }
+  .alert-success {
+    background: rgba(255, 184, 0, 0.08);
+    border: 1px solid var(--primary);
+    color: var(--primary);
+  }
+
+  /* Progress */
+  .progress-wrap { margin: 16px 0; }
+  .progress-bar {
+    height: 4px;
+    background: var(--sc);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--primary);
+    width: 0%;
+    transition: width 360ms ease-out;
+    position: relative;
+  }
+  .progress-fill.shimmer::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: shimmer 1.6s linear infinite;
+  }
+  @keyframes shimmer { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
+  .progress-meta {
+    display: flex; justify-content: space-between; gap: 12px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--outline);
+    margin-bottom: 8px;
+  }
+  .progress-meta .pct { color: var(--primary); }
+
+  /* Scenes / Results */
+  .results-head {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin: 32px 0 24px;
+    flex-wrap: wrap; gap: 16px;
+  }
+  .results-head h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .results-head h2 .a { color: var(--primary); font-style: italic; font-weight: 500; }
+  .scenes { display: flex; flex-direction: column; gap: 12px; }
+
+  .scene {
+    background: var(--sc-low);
+    border: 1px solid var(--outline-var);
+    border-radius: 12px;
+    padding: 20px;
+    transition: border-color 200ms ease-out;
+    animation: fadeIn 320ms ease-out both;
+  }
+  .scene:hover { border-color: var(--outline); }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .scene-grid { display: flex; gap: 16px; }
+  @media (max-width: 600px) { .scene-grid { flex-direction: column; } }
+  .scene-rail {
+    width: 80px; flex-shrink: 0;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  @media (max-width: 600px) { .scene-rail { flex-direction: row; align-items: baseline; width: auto; } }
+  .scene-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--primary);
+    line-height: 1;
+  }
+  .scene-mood {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--outline);
+    background: var(--sc);
+    padding: 4px 8px;
+    border-radius: 4px;
+    align-self: flex-start;
+  }
+  .scene-body { flex: 1; min-width: 0; }
+  .scene-caption {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+  .scene-quote {
+    color: var(--on-surface-var);
+    border-left: 2px solid var(--primary);
+    padding-left: 12px;
+    font-size: 13px;
+    margin-bottom: 12px;
+    font-style: italic;
+    opacity: 0.85;
+  }
+  .scene-keywords {
+    display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
+    margin-bottom: 12px;
+  }
+  .tag {
+    background: var(--sc);
+    border: 1px solid var(--outline-var);
+    color: var(--on-surface-var);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+  }
+  .tag.alt { color: var(--tertiary); border-color: rgba(171, 235, 255, 0.3); }
+
+  .scene-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 8px; }
+  .scene-row-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--outline);
+    margin-right: 4px;
+  }
+  .scene-link {
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: 1px solid var(--outline-var);
+    color: var(--on-surface-var);
+    transition: all 200ms ease-out;
+  }
+  .scene-link:hover { border-color: var(--primary); color: var(--primary); background: rgba(255,184,0,0.04); }
+  .scene-link.alt:hover { border-color: var(--tertiary); color: var(--tertiary); background: rgba(171,235,255,0.04); }
+
+  /* ======================================================
+     PAYMENT PAGE
+     ====================================================== */
+  .payment-hero {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .payment-hero .price {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 64px;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .payment-hero .price .currency { font-size: 32px; opacity: 0.7; vertical-align: super; }
+  .payment-hero .label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--outline);
+    margin-top: 8px;
+  }
+
+  .bank-card {
+    background: linear-gradient(135deg, var(--sc-low), var(--sc));
+    border: 1px solid var(--primary);
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: var(--amber-glow);
+    margin-bottom: 24px;
+  }
+  .bank-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--outline-var); }
+  .bank-row:last-child { border-bottom: none; }
+  .bank-row .k {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--outline);
+  }
+  .bank-row .v {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--on-surface);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .bank-row .v.big { font-size: 22px; }
+  .copy-btn {
+    background: var(--sc);
+    border: 1px solid var(--outline-var);
+    color: var(--outline);
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: all 200ms ease-out;
+  }
+  .copy-btn:hover { border-color: var(--primary); color: var(--primary); }
+  .copy-btn.copied { background: var(--primary); color: var(--on-primary); border-color: var(--primary); }
+
+  .payment-steps {
+    margin-bottom: 24px;
+  }
+  .step {
+    display: flex; gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--outline-var);
+  }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--sc);
+    color: var(--outline);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+  .step.done .step-num { background: var(--primary); color: var(--on-primary); }
+  .step .step-text { font-size: 14px; line-height: 1.5; }
+  .step .step-text strong { color: var(--primary); }
+
+  /* Screenshot upload */
+  .upload-zone {
+    border: 1px dashed var(--outline-var);
+    border-radius: 8px;
+    padding: 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 200ms ease-out;
+    background: var(--sc-lowest);
+  }
+  .upload-zone:hover { border-color: var(--primary); background: rgba(255, 184, 0, 0.04); }
+  .upload-zone.has-file { border-color: var(--primary); background: rgba(255, 184, 0, 0.06); border-style: solid; }
+  .upload-zone p { font-size: 13px; color: var(--outline); }
+  .upload-zone .filename { font-family: 'Space Grotesk', sans-serif; color: var(--primary); margin-top: 4px; word-break: break-all; }
+
+  /* ======================================================
+     ADMIN PAGE
+     ====================================================== */
+  .admin-tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--outline-var);
+  }
+  .admin-tab {
+    padding: 12px 16px;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--outline);
+    transition: all 200ms ease-out;
+  }
+  .admin-tab:hover { color: var(--on-surface); }
+  .admin-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+  .admin-tab .count {
+    margin-left: 6px;
+    background: var(--sc);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 10px;
+  }
+  .admin-tab.active .count { background: rgba(255, 184, 0, 0.15); color: var(--primary); }
+
+  .user-row {
+    background: var(--sc-low);
+    border: 1px solid var(--outline-var);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 8px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 16px;
+    align-items: center;
+  }
+  @media (max-width: 600px) { .user-row { grid-template-columns: 1fr; } }
+  .user-row .meta {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    color: var(--outline);
+    margin-top: 4px;
+    letter-spacing: 0.05em;
+  }
+  .user-row .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  .modal-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+    animation: fadeIn 200ms ease-out;
+  }
+  .modal {
+    background: var(--sc-low);
+    border: 1px solid var(--outline-var);
+    border-radius: 16px;
+    padding: 32px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  .modal img { max-width: 100%; border-radius: 8px; margin: 16px 0; }
+  .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px; flex-wrap: wrap; }
+
+  /* Loading screen */
+  #bootScreen {
+    position: fixed; inset: 0;
+    background: var(--bg-deep);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 9999;
+    flex-direction: column;
+    gap: 16px;
+  }
+  #bootScreen.hidden { display: none; }
+  #bootScreen .brand-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+  }
+  #bootScreen .brand-name .a { color: var(--primary); }
+
+  /* Empty states */
+  .empty {
+    text-align: center;
+    padding: 48px 24px;
+    color: var(--outline);
+  }
+  .empty .ic { font-size: 32px; margin-bottom: 12px; opacity: 0.5; }
+
+  /* Footer */
+  .app-footer {
+    border-top: 1px solid var(--outline-var);
+    padding: 20px 32px;
+    margin-top: 48px;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--outline);
+  }
+
+  /* Utility */
+  .hidden { display: none !important; }
+  .text-mute { color: var(--outline); }
+  .text-amber { color: var(--primary); }
+  .mt-16 { margin-top: 16px; }
+  .mt-24 { margin-top: 24px; }
+  .mb-16 { margin-bottom: 16px; }
+  .gap-12 { gap: 12px; }
+  .flex-row { display: flex; align-items: center; }
+</style>
+</head>
+<body>
+
+<!-- Boot screen -->
+<div id="bootScreen">
+  <div class="brand-name">CHELY <span class="a">AI</span></div>
+  <div class="spinner light"></div>
+</div>
+
+<!-- Auth shell (login / signup / landing) -->
+<div id="authShell" class="auth-shell hidden"></div>
+
+<!-- App shell (sidebar + main) -->
+<div id="appShell" class="app-shell hidden">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <h2>CHELY <span class="a">AI</span></h2>
+      <div class="sub">Illuminated Intelligence</div>
+    </div>
+    <nav class="sidebar-nav" id="sidebarNav"></nav>
+    <div class="sidebar-footer">
+      <button class="btn btn-ghost btn-block" id="signOutBtn">Sign Out</button>
+    </div>
+  </aside>
+  <div class="main">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="topbar-mobile-toggle" id="mobileToggle">☰</button>
+        <span class="topbar-mobile-brand">CHELY <span class="a">AI</span></span>
+      </div>
+      <div class="topbar-right" id="topbarRight"></div>
+    </header>
+    <div class="content" id="pageContent"></div>
+    <footer class="app-footer">
+      <div>© 2026 CHELY ARTIFICIAL INTELLIGENCE</div>
+      <div>END OF REEL // SYSTEM_OK</div>
+    </footer>
+  </div>
+</div>
+
+<script type="module">
+
+// ============================================================
+// FIREBASE CONFIG — REPLACE WITH YOUR OWN
+// ============================================================
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+// Bank details (already configured for you)
+const BANK_INFO = {
+  account: "8997069476",
+  bank: "Fairmoney MFB",
+  name: "Mustapha Goji",
+  amount: 5000
+};
+
+// ============================================================
+// FIREBASE IMPORTS
+// ============================================================
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import {
+  getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword,
+  signOut, onAuthStateChanged, updateProfile
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import {
+  getFirestore, doc, getDoc, setDoc, updateDoc, serverTimestamp,
+  collection, query, where, orderBy, onSnapshot, getDocs
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+let firebaseApp, auth, db;
+let firebaseReady = false;
+
+try {
+  firebaseApp = initializeApp(firebaseConfig);
+  auth = getAuth(firebaseApp);
+  db = getFirestore(firebaseApp);
+  firebaseReady = true;
+} catch (e) {
+  console.error("Firebase init failed:", e);
+}
+
+// ============================================================
+// STATE
+// ============================================================
+let currentUser = null;
+let userDoc = null;
+let userDocUnsubscribe = null;
+let pendingPaymentsUnsub = null;
+
+const $ = (id) => document.getElementById(id);
+
+// ============================================================
+// ROUTER
+// ============================================================
+function navigate(path) {
+  if (location.hash !== "#" + path) {
+    location.hash = "#" + path;
+  } else {
+    handleRoute();
+  }
+}
+
+function getRoute() {
+  return location.hash.replace(/^#/, "") || "/";
+}
+
+async function handleRoute() {
+  const route = getRoute();
+
+  // Not signed in: only landing/login/signup are accessible
+  if (!currentUser) {
+    if (route === "/login") return showAuth(renderLogin);
+    if (route === "/signup") return showAuth(renderSignup);
+    return showAuth(renderLanding);
+  }
+
+  // Signed in but no userDoc loaded yet
+  if (!userDoc) {
+    return showAuth(() => `<div class="auth-card card-glass" style="text-align:center"><div class="spinner light" style="margin: 0 auto"></div><p class="mt-16 text-mute">Loading your account...</p></div>`);
+  }
+
+  // Signed in: route to appropriate page
+  if (route === "/admin") {
+    if (!userDoc.isAdmin) return navigate("/app");
+    return showApp("admin", renderAdmin);
+  }
+
+  if (route === "/payment" || userDoc.status !== "paid") {
+    if (userDoc.isAdmin) {
+      // Admin can skip payment — but they can still view this page if they want
+      if (route === "/payment") return showApp("payment", renderPayment);
+      return showApp("app", renderApp);
+    }
+    if (userDoc.status === "pending") return showApp("payment", renderPending);
+    return showApp("payment", renderPayment);
+  }
+
+  // Default: app
+  return showApp("app", renderApp);
+}
+
+function showAuth(renderFn) {
+  $("authShell").classList.remove("hidden");
+  $("appShell").classList.add("hidden");
+  $("authShell").innerHTML = renderFn();
+  bindAuthEvents();
+}
+
+function showApp(activeNav, renderFn) {
+  $("authShell").classList.add("hidden");
+  $("appShell").classList.remove("hidden");
+  renderSidebar(activeNav);
+  renderTopbar();
+  $("pageContent").innerHTML = renderFn();
+  bindAppEvents(activeNav);
+}
+
+window.addEventListener("hashchange", handleRoute);
+
+// ============================================================
+// AUTH OBSERVER
+// ============================================================
+if (firebaseReady) {
+  onAuthStateChanged(auth, async (user) => {
+    if (userDocUnsubscribe) { userDocUnsubscribe(); userDocUnsubscribe = null; }
+    if (pendingPaymentsUnsub) { pendingPaymentsUnsub(); pendingPaymentsUnsub = null; }
+
+    currentUser = user;
+    userDoc = null;
+
+    if (user) {
+      const userRef = doc(db, "users", user.uid);
+      try {
+        const snap = await getDoc(userRef);
+        if (!snap.exists()) {
+          // Create initial doc on first sign in
+          const initial = {
+            uid: user.uid,
+            email: user.email,
+            displayName: user.displayName || user.email.split("@")[0],
+            status: "unpaid",
+            isAdmin: false,
+            createdAt: serverTimestamp()
+          };
+          await setDoc(userRef, initial);
+          userDoc = initial;
+        } else {
+          userDoc = snap.data();
+        }
+        // Live updates to the user's own doc (so admin approval refreshes their view)
+        userDocUnsubscribe = onSnapshot(userRef, (s) => {
+          if (s.exists()) {
+            userDoc = s.data();
+            handleRoute();
+          }
+        });
+      } catch (e) {
+        console.error("Failed loading user doc:", e);
+        userDoc = { status: "unpaid", isAdmin: false, email: user.email };
+      }
+    }
+
+    $("bootScreen").classList.add("hidden");
+    handleRoute();
+  });
+} else {
+  // Firebase not configured
+  $("bootScreen").classList.add("hidden");
+  showAuth(renderConfigError);
+}
+
+// ============================================================
+// AUTH PAGES
+// ============================================================
+function renderConfigError() {
+  return `
+    <div class="auth-brand">
+      <h1>CHELY <span class="a">AI</span></h1>
+    </div>
+    <div class="auth-card card-glass">
+      <h2>Firebase not configured</h2>
+      <p class="sub">Edit this HTML file and replace the <code>firebaseConfig</code> placeholder near the top of the &lt;script&gt; tag with your real Firebase project config. See the README for setup steps.</p>
+    </div>
+  `;
+}
+
+function renderLanding() {
+  return `
+    <div class="landing-hero">
+      <h1>Script in.<br>Footage out.<span class="a">.</span></h1>
+      <p class="lead">Chely AI breaks your script into visual beats and finds matching stock footage across 8 sites — Envato, Pexels, Pixabay, Mixkit, and more.</p>
+      <div class="actions">
+        <button class="btn btn-primary btn-lg" data-nav="/signup">Get Started →</button>
+        <button class="btn btn-ghost btn-lg" data-nav="/login">Sign In</button>
+      </div>
+    </div>
+    <div class="landing-features">
+      <div class="feature">
+        <div class="num">01</div>
+        <h3>AI script analysis</h3>
+        <p>Powered by Claude or any OpenRouter model. Bring your own key.</p>
+      </div>
+      <div class="feature">
+        <div class="num">02</div>
+        <h3>Up to 300 scenes</h3>
+        <p>Batched in parallel. Long scripts processed in seconds.</p>
+      </div>
+      <div class="feature">
+        <div class="num">03</div>
+        <h3>8 stock sites</h3>
+        <p>One click opens the right search on Envato, Pexels, Pixabay, and more.</p>
+      </div>
+    </div>
+  `;
+}
+
+function renderLogin() {
+  return `
+    <div class="auth-brand">
+      <h1>CHELY <span class="a">AI</span></h1>
+      <div class="tagline">Illuminated Intelligence</div>
+    </div>
+    <div class="auth-card card-glass">
+      <h2>Welcome back</h2>
+      <p class="sub">Sign in to continue.</p>
+      <form id="loginForm">
+        <div class="field">
+          <label class="field-label">Email</label>
+          <input class="input" type="email" id="loginEmail" required autocomplete="email" />
+        </div>
+        <div class="field">
+          <label class="field-label">Password</label>
+          <input class="input" type="password" id="loginPassword" required autocomplete="current-password" />
+        </div>
+        <div id="loginError" class="alert alert-error hidden mt-16"></div>
+        <button class="btn btn-primary btn-block submit" type="submit" id="loginBtn">Sign In</button>
+      </form>
+      <div class="switch">
+        Don't have an account? <a data-nav="/signup">Create one →</a>
+      </div>
+    </div>
+  `;
+}
+
+function renderSignup() {
+  return `
+    <div class="auth-brand">
+      <h1>CHELY <span class="a">AI</span></h1>
+      <div class="tagline">Illuminated Intelligence</div>
+    </div>
+    <div class="auth-card card-glass">
+      <h2>Create your account</h2>
+      <p class="sub">Start finding footage in 60 seconds.</p>
+      <form id="signupForm">
+        <div class="field">
+          <label class="field-label">Name</label>
+          <input class="input" type="text" id="signupName" required />
+        </div>
+        <div class="field">
+          <label class="field-label">Email</label>
+          <input class="input" type="email" id="signupEmail" required autocomplete="email" />
+        </div>
+        <div class="field">
+          <label class="field-label">Password (min. 6 chars)</label>
+          <input class="input" type="password" id="signupPassword" required autocomplete="new-password" minlength="6" />
+        </div>
+        <div id="signupError" class="alert alert-error hidden mt-16"></div>
+        <button class="btn btn-primary btn-block submit" type="submit" id="signupBtn">Create Account</button>
+      </form>
+      <div class="switch">
+        Already have an account? <a data-nav="/login">Sign in →</a>
+      </div>
+    </div>
+  `;
+}
+
+function bindAuthEvents() {
+  // Nav buttons
+  document.querySelectorAll('[data-nav]').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      navigate(el.dataset.nav);
+    });
+  });
+
+  // Login form
+  const loginForm = $("loginForm");
+  if (loginForm) {
+    loginForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = $("loginEmail").value.trim();
+      const password = $("loginPassword").value;
+      const btn = $("loginBtn");
+      const err = $("loginError");
+      err.classList.add("hidden");
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> Signing in...';
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        // onAuthStateChanged handles the redirect
+      } catch (e) {
+        err.textContent = friendlyAuthError(e);
+        err.classList.remove("hidden");
+        btn.disabled = false;
+        btn.innerHTML = "Sign In";
+      }
+    });
+  }
+
+  // Signup form
+  const signupForm = $("signupForm");
+  if (signupForm) {
+    signupForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const name = $("signupName").value.trim();
+      const email = $("signupEmail").value.trim();
+      const password = $("signupPassword").value;
+      const btn = $("signupBtn");
+      const err = $("signupError");
+      err.classList.add("hidden");
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> Creating account...';
+      try {
+        const cred = await createUserWithEmailAndPassword(auth, email, password);
+        if (name) await updateProfile(cred.user, { displayName: name });
+        // onAuthStateChanged handles the redirect (and creates user doc)
+      } catch (e) {
+        err.textContent = friendlyAuthError(e);
+        err.classList.remove("hidden");
+        btn.disabled = false;
+        btn.innerHTML = "Create Account";
+      }
+    });
+  }
+}
+
+function friendlyAuthError(e) {
+  const code = e?.code || "";
+  if (code.includes("invalid-email")) return "That doesn't look like a valid email.";
+  if (code.includes("user-not-found") || code.includes("wrong-password") || code.includes("invalid-credential")) return "Wrong email or password.";
+  if (code.includes("email-already-in-use")) return "That email is already registered. Try signing in instead.";
+  if (code.includes("weak-password")) return "Password must be at least 6 characters.";
+  if (code.includes("network")) return "Network error. Check your connection.";
+  return e?.message || "Something went wrong. Try again.";
+}
+
+// ============================================================
+// SIDEBAR / TOPBAR
+// ============================================================
+function renderSidebar(active) {
+  const items = [];
+  items.push({ id: "app", label: "Footage Finder", route: "/app", icon: "🔍", visible: userDoc.status === "paid" || userDoc.isAdmin });
+  if (userDoc.status !== "paid" && !userDoc.isAdmin) {
+    items.push({ id: "payment", label: "Activate Account", route: "/payment", icon: "✦", highlight: true });
+  }
+  if (userDoc.isAdmin) {
+    items.push({ id: "admin", label: "Admin Panel", route: "/admin", icon: "⚙" });
+  }
+  $("sidebarNav").innerHTML = items.filter(i => i.visible !== false).map(i => `
+    <a class="nav-item ${active === i.id ? "active" : ""}" data-nav="${i.route}" style="${i.highlight ? "background: rgba(255,184,0,0.06); color: var(--primary);" : ""}">
+      <span class="icon">${i.icon}</span>
+      ${i.label}
+    </a>
+  `).join("");
+}
+
+function renderTopbar() {
+  const initial = (userDoc.displayName || userDoc.email || "?").charAt(0).toUpperCase();
+  const statusLabel = userDoc.isAdmin ? "ADMIN" : (userDoc.status || "unpaid").toUpperCase();
+  const statusClass = userDoc.isAdmin ? "admin" : (userDoc.status || "unpaid");
+  $("topbarRight").innerHTML = `
+    <span class="user-status ${statusClass}">${statusLabel}</span>
+    <div class="user-chip">
+      <div class="user-avatar">${initial}</div>
+      <span>${userDoc.displayName || userDoc.email}</span>
+    </div>
+  `;
+}
+
+function bindAppEvents(activeNav) {
+  // Nav clicks
+  document.querySelectorAll('[data-nav]').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      navigate(el.dataset.nav);
+      $("sidebar").classList.remove("open");
+    });
+  });
+
+  // Sign out
+  $("signOutBtn").onclick = async () => {
+    await signOut(auth);
+    navigate("/");
+  };
+
+  // Mobile sidebar toggle
+  $("mobileToggle").onclick = () => $("sidebar").classList.toggle("open");
+
+  // Page-specific bindings
+  if (activeNav === "app") bindAppPage();
+  if (activeNav === "payment") bindPaymentPage();
+  if (activeNav === "admin") bindAdminPage();
+}
+
+// ============================================================
+// PAGE: PAYMENT
+// ============================================================
+function renderPayment() {
+  return `
+    <div class="page-hero">
+      <h1>Activate <span class="a">Chely AI</span></h1>
+      <p>One-time payment. Lifetime access. Pay via bank transfer to the account below.</p>
+    </div>
+
+    <div style="max-width: 640px; margin: 0 auto;">
+
+      <div class="payment-hero">
+        <div class="price"><span class="currency">₦</span>5,000</div>
+        <div class="label">One-time · Lifetime access</div>
+      </div>
+
+      <div class="bank-card">
+        <div class="bank-row">
+          <span class="k">Bank</span>
+          <span class="v">${BANK_INFO.bank}</span>
+        </div>
+        <div class="bank-row">
+          <span class="k">Account No.</span>
+          <span class="v big">
+            ${BANK_INFO.account}
+            <button class="copy-btn" data-copy="${BANK_INFO.account}">Copy</button>
+          </span>
+        </div>
+        <div class="bank-row">
+          <span class="k">Account Name</span>
+          <span class="v">${BANK_INFO.name}</span>
+        </div>
+        <div class="bank-row">
+          <span class="k">Amount</span>
+          <span class="v">₦${BANK_INFO.amount.toLocaleString()}</span>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <div class="payment-steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-text">Open your bank app and transfer <strong>₦${BANK_INFO.amount.toLocaleString()}</strong> to <strong>${BANK_INFO.account}</strong> (${BANK_INFO.bank}).</div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-text">Optionally upload your transfer receipt below (helps speed up verification).</div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-text">Click <strong>I have sent</strong>. Admin verifies within a few hours and your access unlocks automatically.</div>
+          </div>
+        </div>
+
+        <form id="paymentForm">
+          <div class="field mt-16">
+            <label class="field-label">Sender name (the name on your bank account)</label>
+            <input class="input" type="text" id="senderName" placeholder="e.g. John Doe" required />
+          </div>
+          <div class="field mt-16">
+            <label class="field-label">Transaction reference (optional)</label>
+            <input class="input" type="text" id="txnRef" placeholder="e.g. transaction ID from your bank app" />
+          </div>
+          <div class="field mt-16">
+            <label class="field-label">Transfer receipt screenshot (optional)</label>
+            <label class="upload-zone" id="uploadZone" for="screenshotInput">
+              <p>Tap to upload screenshot</p>
+              <p class="filename" id="filenameLabel"></p>
+              <input type="file" id="screenshotInput" accept="image/*" hidden />
+            </label>
+          </div>
+          <div id="paymentError" class="alert alert-error hidden mt-16"></div>
+          <button class="btn btn-primary btn-block submit mt-24" type="submit" id="paymentSubmitBtn">I have sent →</button>
+        </form>
+      </div>
+
+    </div>
+  `;
+}
+
+function renderPending() {
+  return `
+    <div class="page-hero">
+      <h1>Almost <span class="a">there</span></h1>
+      <p>Your payment is being verified.</p>
+    </div>
+
+    <div style="max-width: 540px; margin: 0 auto;">
+      <div class="alert alert-info">
+        <div>
+          <strong>Payment under review</strong><br>
+          We received your payment notification. Admin will verify it within a few hours and your access will unlock automatically — this page will refresh on its own.
+        </div>
+      </div>
+
+      <div class="section-card mt-16">
+        <h3 style="font-family: 'Space Grotesk', sans-serif; margin-bottom: 12px; font-size: 16px;">Submitted details</h3>
+        <div class="bank-row">
+          <span class="k">Sender Name</span>
+          <span class="v" style="font-size: 14px;">${escapeHtml(userDoc.senderName || "—")}</span>
+        </div>
+        ${userDoc.txnRef ? `
+        <div class="bank-row">
+          <span class="k">Reference</span>
+          <span class="v" style="font-size: 14px;">${escapeHtml(userDoc.txnRef)}</span>
+        </div>` : ""}
+        <div class="bank-row">
+          <span class="k">Status</span>
+          <span class="v"><span class="user-status pending">PENDING</span></span>
+        </div>
+      </div>
+
+      <div class="mt-24" style="text-align: center;">
+        <button class="btn btn-ghost" id="resubmitBtn">Submit different details</button>
+      </div>
+    </div>
+  `;
+}
+
+function bindPaymentPage() {
+  // Copy buttons
+  document.querySelectorAll('[data-copy]').forEach(b => {
+    b.onclick = () => {
+      navigator.clipboard.writeText(b.dataset.copy);
+      b.classList.add("copied");
+      const orig = b.textContent;
+      b.textContent = "Copied ✓";
+      setTimeout(() => { b.classList.remove("copied"); b.textContent = orig; }, 1400);
+    };
+  });
+
+  // Re-submit button on pending page
+  const resubmitBtn = $("resubmitBtn");
+  if (resubmitBtn) {
+    resubmitBtn.onclick = async () => {
+      // Reset their status to unpaid so they can re-submit
+      await updateDoc(doc(db, "users", currentUser.uid), { status: "unpaid" });
+    };
+  }
+
+  // Screenshot upload
+  let screenshotData = null;
+  const fileInput = $("screenshotInput");
+  if (fileInput) {
+    fileInput.addEventListener("change", async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      try {
+        screenshotData = await compressImage(file);
+        $("filenameLabel").textContent = `✓ ${file.name} (${Math.round(screenshotData.length/1024)}KB)`;
+        $("uploadZone").classList.add("has-file");
+      } catch (err) {
+        alert("Could not process image: " + err.message);
+      }
+    });
+  }
+
+  // Payment form submission
+  const form = $("paymentForm");
+  if (form) {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const sender = $("senderName").value.trim();
+      const ref = $("txnRef").value.trim();
+      const btn = $("paymentSubmitBtn");
+      const err = $("paymentError");
+      err.classList.add("hidden");
+
+      if (!sender) {
+        err.textContent = "Please enter the sender name.";
+        err.classList.remove("hidden");
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> Submitting...';
+
+      try {
+        const update = {
+          status: "pending",
+          senderName: sender,
+          txnRef: ref || null,
+          paymentSubmittedAt: serverTimestamp()
+        };
+        if (screenshotData) update.screenshot = screenshotData;
+        await updateDoc(doc(db, "users", currentUser.uid), update);
+        // userDoc snapshot will refresh and route to pending page
+      } catch (e) {
+        err.textContent = "Failed to submit: " + (e.message || "unknown error");
+        err.classList.remove("hidden");
+        btn.disabled = false;
+        btn.innerHTML = "I have sent →";
+      }
+    });
+  }
+}
+
+// Compress and base64-encode an image to fit Firestore's 1MB doc limit.
+async function compressImage(file, maxWidth = 800, quality = 0.7) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        const ratio = Math.min(1, maxWidth / img.width);
+        const w = Math.round(img.width * ratio);
+        const h = Math.round(img.height * ratio);
+        const canvas = document.createElement("canvas");
+        canvas.width = w; canvas.height = h;
+        const ctx = canvas.getContext("2d");
+        ctx.fillStyle = "#000";
+        ctx.fillRect(0, 0, w, h);
+        ctx.drawImage(img, 0, 0, w, h);
+        try {
+          const data = canvas.toDataURL("image/jpeg", quality);
+          if (data.length > 900000) {
+            // Try harder
+            resolve(canvas.toDataURL("image/jpeg", 0.5));
+          } else {
+            resolve(data);
+          }
+        } catch (e) { reject(e); }
+      };
+      img.onerror = () => reject(new Error("Invalid image file"));
+      img.src = e.target.result;
+    };
+    reader.onerror = () => reject(new Error("Could not read file"));
+    reader.readAsDataURL(file);
+  });
+}
+
+// ============================================================
+// PAGE: ADMIN
+// ============================================================
+let adminTab = "pending";
+let adminUsers = { pending: [], paid: [], all: [] };
+
+function renderAdmin() {
+  return `
+    <div class="page-hero">
+      <h1>Admin <span class="a">Panel</span></h1>
+      <p>Verify payments and manage user access.</p>
+    </div>
+
+    <div class="admin-tabs">
+      <button class="admin-tab ${adminTab === "pending" ? "active" : ""}" data-tab="pending">Pending <span class="count" id="cnt-pending">0</span></button>
+      <button class="admin-tab ${adminTab === "paid" ? "active" : ""}" data-tab="paid">Paid <span class="count" id="cnt-paid">0</span></button>
+      <button class="admin-tab ${adminTab === "all" ? "active" : ""}" data-tab="all">All Users <span class="count" id="cnt-all">0</span></button>
+    </div>
+
+    <div id="adminList">
+      <div class="empty">
+        <div class="spinner light" style="margin: 0 auto 12px"></div>
+        <div>Loading users...</div>
+      </div>
+    </div>
+  `;
+}
+
+function bindAdminPage() {
+  document.querySelectorAll(".admin-tab").forEach(t => {
+    t.onclick = () => {
+      adminTab = t.dataset.tab;
+      document.querySelectorAll(".admin-tab").forEach(x => x.classList.toggle("active", x.dataset.tab === adminTab));
+      renderAdminList();
+    };
+  });
+
+  // Live listener on all users
+  if (pendingPaymentsUnsub) pendingPaymentsUnsub();
+  const usersRef = collection(db, "users");
+  pendingPaymentsUnsub = onSnapshot(usersRef, (snap) => {
+    const all = [];
+    snap.forEach(d => all.push({ id: d.id, ...d.data() }));
+    adminUsers.all = all;
+    adminUsers.pending = all.filter(u => u.status === "pending");
+    adminUsers.paid = all.filter(u => u.status === "paid");
+    const cp = $("cnt-pending"), cpd = $("cnt-paid"), ca = $("cnt-all");
+    if (cp) cp.textContent = adminUsers.pending.length;
+    if (cpd) cpd.textContent = adminUsers.paid.length;
+    if (ca) ca.textContent = adminUsers.all.length;
+    renderAdminList();
+  }, (err) => {
+    console.error(err);
+    const list = $("adminList");
+    if (list) list.innerHTML = `<div class="alert alert-error">Could not load users: ${escapeHtml(err.message)}</div>`;
+  });
+}
+
+function renderAdminList() {
+  const list = $("adminList");
+  if (!list) return;
+  const users = adminUsers[adminTab] || [];
+  if (users.length === 0) {
+    list.innerHTML = `<div class="empty"><div class="ic">∅</div><div>No users in this category yet.</div></div>`;
+    return;
+  }
+  list.innerHTML = users.map(u => {
+    const submittedAt = u.paymentSubmittedAt?.toDate?.() ? u.paymentSubmittedAt.toDate().toLocaleString() : "";
+    const statusBadge = u.isAdmin ? `<span class="user-status admin">ADMIN</span>` : `<span class="user-status ${u.status}">${(u.status || "unpaid").toUpperCase()}</span>`;
+    const meta = [];
+    if (u.senderName) meta.push(`Sender: ${escapeHtml(u.senderName)}`);
+    if (u.txnRef) meta.push(`Ref: ${escapeHtml(u.txnRef)}`);
+    if (submittedAt) meta.push(`Sent: ${submittedAt}`);
+    return `
+      <div class="user-row">
+        <div>
+          <div style="font-weight: 600;">${escapeHtml(u.displayName || u.email)} ${statusBadge}</div>
+          <div class="text-mute" style="font-size: 13px;">${escapeHtml(u.email)}</div>
+          ${meta.length ? `<div class="meta">${meta.join(" · ")}</div>` : ""}
+        </div>
+        <div class="actions">
+          ${u.screenshot ? `<button class="btn btn-ghost" data-view-shot="${u.id}">View screenshot</button>` : ""}
+          ${u.status === "pending" ? `<button class="btn btn-primary" data-approve="${u.id}">Approve</button>` : ""}
+          ${u.status === "pending" ? `<button class="btn btn-danger" data-reject="${u.id}">Reject</button>` : ""}
+          ${u.status === "paid" && !u.isAdmin && u.id !== currentUser.uid ? `<button class="btn btn-ghost" data-revoke="${u.id}">Revoke</button>` : ""}
+        </div>
+      </div>
+    `;
+  }).join("");
+
+  // Bind action buttons
+  list.querySelectorAll("[data-approve]").forEach(b => {
+    b.onclick = async () => {
+      b.disabled = true; b.textContent = "Approving...";
+      try {
+        await updateDoc(doc(db, "users", b.dataset.approve), {
+          status: "paid",
+          approvedAt: serverTimestamp(),
+          approvedBy: currentUser.uid
+        });
+      } catch (e) { alert("Failed: " + e.message); b.disabled = false; b.textContent = "Approve"; }
+    };
+  });
+  list.querySelectorAll("[data-reject]").forEach(b => {
+    b.onclick = async () => {
+      if (!confirm("Reject this payment? The user will be sent back to the payment page.")) return;
+      try { await updateDoc(doc(db, "users", b.dataset.reject), { status: "unpaid", rejectedAt: serverTimestamp() }); }
+      catch (e) { alert("Failed: " + e.message); }
+    };
+  });
+  list.querySelectorAll("[data-revoke]").forEach(b => {
+    b.onclick = async () => {
+      if (!confirm("Revoke access for this user?")) return;
+      try { await updateDoc(doc(db, "users", b.dataset.revoke), { status: "unpaid" }); }
+      catch (e) { alert("Failed: " + e.message); }
+    };
+  });
+  list.querySelectorAll("[data-view-shot]").forEach(b => {
+    b.onclick = () => {
+      const u = adminUsers.all.find(x => x.id === b.dataset.viewShot);
+      if (!u?.screenshot) return;
+      showModal(`
+        <h2 style="font-family: 'Space Grotesk', sans-serif; margin-bottom: 8px;">Transfer screenshot</h2>
+        <p class="text-mute" style="font-size: 13px;">${escapeHtml(u.displayName || u.email)}</p>
+        <img src="${u.screenshot}" alt="Screenshot" />
+        <div class="modal-actions">
+          <button class="btn btn-ghost" id="modalClose">Close</button>
+        </div>
+      `);
+    };
+  });
+}
+
+function showModal(content) {
+  const backdrop = document.createElement("div");
+  backdrop.className = "modal-backdrop";
+  backdrop.innerHTML = `<div class="modal">${content}</div>`;
+  document.body.appendChild(backdrop);
+  const close = () => backdrop.remove();
+  backdrop.addEventListener("click", (e) => { if (e.target === backdrop) close(); });
+  const closeBtn = backdrop.querySelector("#modalClose");
+  if (closeBtn) closeBtn.onclick = close;
+}
+
+// ============================================================
+// PAGE: APP (FOOTAGE FINDER) — original tool, restyled
+// ============================================================
+const SITES = [
+  { id: 'envato',   label: 'Envato',   icon: '◆', build: s => `https://elements.envato.com/stock-video/${s}` },
+  { id: 'pexels',   label: 'Pexels',   icon: '◉', build: s => `https://www.pexels.com/search/videos/${s}/` },
+  { id: 'pixabay',  label: 'Pixabay',  icon: '✦', build: s => `https://pixabay.com/videos/search/${s}/` },
+  { id: 'mixkit',   label: 'Mixkit',   icon: '▣', build: s => `https://mixkit.co/free-stock-video/${s}/` },
+  { id: 'vecteezy', label: 'Vecteezy', icon: '▤', build: s => `https://www.vecteezy.com/free-videos/${s}` },
+  { id: 'coverr',   label: 'Coverr',   icon: '◐', build: s => `https://coverr.co/stock-video-footage/${s}` },
+  { id: 'mazwai',   label: 'Mazwai',   icon: '◈', build: s => `https://mazwai.com/?s=${encodeURIComponent(s.replace(/-/g, ' '))}` },
+  { id: 'unsplash', label: 'Unsplash', icon: '○', build: s => `https://unsplash.com/s/photos/${s}` },
+];
+const DEFAULT_SITES = ['envato', 'pexels', 'pixabay', 'mixkit'];
+const SAMPLE_SCRIPT = `Most people think productivity means doing more. But the most productive people I know? They've mastered the art of doing less. They wake up early, they protect their mornings, and they say no to almost everything. Because they understand a simple truth: your time is the only resource you can't get back. So today, stop chasing the hustle. Start protecting your hours.`;
+
+function renderApp() {
+  return `
+    <div class="page-hero">
+      <h1>CHELY <span class="a">AI</span></h1>
+      <p>Paste a script. Pick how many clips you need. Get curated search links across 8 stock sites — one for every visual beat.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-card">
+        <div class="row-2">
+          <div class="field">
+            <label class="field-label">00 — AI Engine</label>
+            <div class="provider-toggle">
+              <button class="provider-btn active" data-provider="anthropic" type="button">⬡ ANTHROPIC</button>
+              <button class="provider-btn" data-provider="openrouter" type="button">⚡ OPENROUTER</button>
+            </div>
+            <input type="text" class="input hidden" id="modelName" placeholder="anthropic/claude-sonnet-4" />
+          </div>
+          <div class="field">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <label class="field-label">API Key</label>
+              <a id="getKeyLink" class="section-link" href="https://console.anthropic.com/settings/keys" target="_blank">Get a key →</a>
+            </div>
+            <input type="password" class="input" id="apiKey" placeholder="sk-ant-..." autocomplete="off" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="row-script">
+        <div class="section-card">
+          <div class="section-head">
+            <span class="mono-label">01 — Script Content</span>
+            <button class="section-link" id="sampleBtn" type="button">📋 Load sample</button>
+          </div>
+          <textarea class="textarea" id="script" placeholder="Enter your cinematic script here..." rows="14"></textarea>
+          <div class="mono-label" style="margin-top: 8px; display: flex; justify-content: space-between;">
+            <span id="scriptMeta">0 chars · 0 words</span>
+            <span id="scriptStatus">min. 20 chars</span>
+          </div>
+        </div>
+        <div class="section-card">
+          <div class="mono-label" style="margin-bottom: 8px;">02 — Clips Needed</div>
+          <div class="stepper-wrap">
+            <button class="stepper-btn" id="incBtn" type="button">+</button>
+            <input type="number" class="stepper-num" id="count" value="5" min="1" max="300" />
+            <button class="stepper-btn" id="decBtn" type="button">−</button>
+            <div class="stepper-label">Visual beats to identify</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-card">
+        <div class="section-head">
+          <span class="mono-label">03 — Source Libraries</span>
+          <div>
+            <button class="section-link" id="sitesAll" type="button">All</button>
+            <span class="text-mute" style="margin: 0 6px;">·</span>
+            <button class="section-link" id="sitesNone" type="button">None</button>
+          </div>
+        </div>
+        <div class="sites-grid" id="sitesGrid"></div>
+      </div>
+    </div>
+
+    <div class="run-section">
+      <button class="run-btn" id="runBtn" type="button">FIND FOOTAGE  →</button>
+    </div>
+
+    <div id="errorBox" class="alert alert-error hidden"></div>
+
+    <div id="resultsWrap" class="hidden">
+      <div class="results-head">
+        <div>
+          <div class="mono-label" style="margin-bottom: 8px;">04 — Shot list</div>
+          <h2><span id="sceneCount">0</span> <span class="a">scenes</span> assembled</h2>
+        </div>
+        <div style="display:flex; gap: 8px; flex-wrap: wrap;">
+          <button class="btn btn-danger hidden" id="stopBtn">Stop</button>
+          <button class="btn btn-ghost" id="copyAllBtn">Copy all URLs</button>
+        </div>
+      </div>
+      <div class="progress-wrap hidden" id="progressWrap">
+        <div class="progress-meta">
+          <span id="progressLabel">Preparing...</span>
+          <span class="pct" id="progressPct">0%</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      </div>
+      <div class="scenes" id="scenes"></div>
+    </div>
+  `;
+}
+
+// --- App page state ---
+let provider = "anthropic";
+let selectedSites = (() => {
+  try { const s = JSON.parse(localStorage.getItem("chely_ai_sites") || ""); if (Array.isArray(s)) return s; } catch(e) {}
+  return [...DEFAULT_SITES];
+})();
+let abortController = null;
+let currentScenes = [];
+
+function bindAppPage() {
+  // Restore stored values
+  const savedProvider = localStorage.getItem("chely_ai_provider") || "anthropic";
+  setProvider(savedProvider);
+
+  const apiKeyEl = $("apiKey");
+  const storedKey = localStorage.getItem("chely_ai_key_" + provider);
+  if (storedKey) apiKeyEl.value = storedKey;
+  apiKeyEl.addEventListener("change", () => {
+    localStorage.setItem("chely_ai_key_" + provider, apiKeyEl.value.trim());
+  });
+
+  const modelEl = $("modelName");
+  modelEl.value = localStorage.getItem("chely_ai_model") || "anthropic/claude-sonnet-4";
+  modelEl.addEventListener("change", () => {
+    localStorage.setItem("chely_ai_model", modelEl.value.trim());
+  });
+
+  // Provider toggle
+  document.querySelectorAll('.provider-btn').forEach(btn => {
+    btn.onclick = () => setProvider(btn.dataset.provider);
+  });
+
+  // Sample
+  $("sampleBtn").onclick = () => { $("script").value = SAMPLE_SCRIPT; updateScriptMeta(); };
+
+  // Script meta
+  $("script").addEventListener("input", updateScriptMeta);
+  updateScriptMeta();
+
+  // Stepper
+  const countEl = $("count");
+  $("incBtn").onclick = () => { countEl.value = clampCount(parseInt(countEl.value, 10) + 1); };
+  $("decBtn").onclick = () => { countEl.value = clampCount(parseInt(countEl.value, 10) - 1); };
+  countEl.addEventListener("change", () => { countEl.value = clampCount(countEl.value); });
+
+  // Sites
+  renderSiteChips();
+  $("sitesAll").onclick = () => { selectedSites = SITES.map(s => s.id); saveSites(); renderSiteChips(); };
+  $("sitesNone").onclick = () => { selectedSites = []; saveSites(); renderSiteChips(); };
+
+  // Run
+  $("runBtn").onclick = generate;
+  $("stopBtn").onclick = () => abortController?.abort();
+  $("copyAllBtn").onclick = copyAllUrls;
+}
+
+function setProvider(p) {
+  provider = p;
+  localStorage.setItem("chely_ai_provider", p);
+  document.querySelectorAll('.provider-btn').forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.provider === p);
+  });
+  const apiKeyEl = $("apiKey");
+  const modelEl = $("modelName");
+  const linkEl = $("getKeyLink");
+  if (apiKeyEl) {
+    apiKeyEl.placeholder = p === "anthropic" ? "sk-ant-..." : "sk-or-...";
+    apiKeyEl.value = localStorage.getItem("chely_ai_key_" + p) || "";
+  }
+  if (modelEl) modelEl.classList.toggle("hidden", p !== "openrouter");
+  if (linkEl) linkEl.href = p === "anthropic" ? "https://console.anthropic.com/settings/keys" : "https://openrouter.ai/keys";
+}
+
+function clampCount(n) {
+  const v = parseInt(n, 10);
+  if (isNaN(v)) return 1;
+  return Math.max(1, Math.min(300, v));
+}
+
+function updateScriptMeta() {
+  const t = $("script").value;
+  const chars = t.length;
+  const words = t.trim().split(/\s+/).filter(Boolean).length;
+  $("scriptMeta").textContent = `${chars} chars · ${words} words`;
+  $("scriptStatus").textContent = chars > 20 ? "READY" : "min. 20 chars";
+}
+
+function saveSites() { localStorage.setItem("chely_ai_sites", JSON.stringify(selectedSites)); }
+
+function renderSiteChips() {
+  const grid = $("sitesGrid");
+  if (!grid) return;
+  grid.innerHTML = SITES.map(s => `
+    <button class="site-card ${selectedSites.includes(s.id) ? "on" : ""}" data-site-id="${s.id}" type="button">
+      <div class="ic">${s.icon}</div>
+      <div class="info">
+        <div class="name">${s.label}</div>
+        <div class="stat">${selectedSites.includes(s.id) ? "Active" : "Inactive"}</div>
+      </div>
+    </button>
+  `).join("");
+  grid.querySelectorAll("[data-site-id]").forEach(btn => {
+    btn.onclick = () => {
+      const id = btn.dataset.siteId;
+      if (selectedSites.includes(id)) selectedSites = selectedSites.filter(x => x !== id);
+      else selectedSites.push(id);
+      saveSites();
+      renderSiteChips();
+    };
+  });
+}
+
+function escapeHtml(s) {
+  return String(s == null ? "" : s).replace(/[&<>"']/g, c => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[c]));
+}
+
+function cleanSlug(s) {
+  return (s || "").toLowerCase().replace(/[^a-z0-9\s-]/g, "").trim().replace(/\s+/g, "-").replace(/-+/g, "-");
+}
+
+function buildSearchUrl(slug, siteId) {
+  const site = SITES.find(s => s.id === siteId);
+  return site ? site.build(cleanSlug(slug)) : "";
+}
+
+function showError(msg) {
+  const box = $("errorBox");
+  box.textContent = "⚠ " + msg;
+  box.classList.remove("hidden");
+}
+function clearError() {
+  const box = $("errorBox");
+  box.classList.add("hidden");
+  box.textContent = "";
+}
+
+// --- Generation ---
+const BATCH_SIZE = 20;
+const CONCURRENCY = 4;
+
+function distributeCount(total, batches) {
+  const base = Math.floor(total / batches);
+  const remainder = total - base * batches;
+  return Array.from({ length: batches }, (_, i) => base + (i < remainder ? 1 : 0));
+}
+
+function splitScript(script, batches) {
+  if (batches <= 1) return [script.trim()];
+  const sentences = script.match(/[^.!?\n]+[.!?]+|\n[^\n]+|[^.!?\n]+$/g) || [script];
+  const cleaned = sentences.map(s => s.trim()).filter(Boolean);
+  if (cleaned.length < batches) return Array(batches).fill(script.trim());
+  const chunks = [];
+  const totalLen = cleaned.reduce((a, b) => a + b.length, 0);
+  const targetLen = totalLen / batches;
+  let cur = [], curLen = 0;
+  for (const s of cleaned) {
+    cur.push(s);
+    curLen += s.length;
+    if (curLen >= targetLen && chunks.length < batches - 1) {
+      chunks.push(cur.join(" ").trim());
+      cur = []; curLen = 0;
+    }
+  }
+  if (cur.length) chunks.push(cur.join(" ").trim());
+  while (chunks.length < batches) chunks.push(script.trim());
+  return chunks.slice(0, batches);
+}
+
+async function runWithConcurrency(taskFns, limit, signal) {
+  const results = new Array(taskFns.length);
+  let next = 0;
+  async function worker() {
+    while (next < taskFns.length) {
+      if (signal?.aborted) return;
+      const i = next++;
+      try { results[i] = { ok: true, value: await taskFns[i]() }; }
+      catch (e) { results[i] = { ok: false, error: e.message || String(e) }; }
+    }
+  }
+  await Promise.all(Array(Math.min(limit, taskFns.length)).fill(0).map(() => worker()));
+  return results;
+}
+
+async function generateBatch(apiKey, scriptChunk, count, batchIndex, totalBatches, signal) {
+  const isFullScript = totalBatches === 1;
+  const positionContext = isFullScript ? "" : `\n\nThis is portion ${batchIndex + 1} of ${totalBatches} of a longer script. Generate scenes ONLY for this portion, in order.`;
+
+  const prompt = `You are an experienced video producer's assistant. A creator needs stock footage to match their script. Generate EXACTLY ${count} visual moments for the script portion below, in order, distributed naturally.${positionContext}
+
+For each moment, provide:
+- "caption": a 5-10 word description of what is happening visually
+- "scriptSegment": a short quote from this script portion (max 15 words, exact wording)
+- "primarySearch": 2-4 concrete visual keywords for stock footage search, formatted as a URL slug with hyphens (e.g. "business-meeting-handshake", "city-skyline-aerial-sunset"). Use concrete nouns and actions, NOT abstract concepts.
+- "altSearch": a different angle/keyword set as a fallback slug
+- "mood": 1-2 word visual mood (e.g. "warm cinematic", "fast urban", "calm minimal")
+
+SCRIPT PORTION:
+"""
+${scriptChunk}
+"""
+
+Return ONLY a valid JSON array with EXACTLY ${count} objects in script order. No markdown, no code fences, no preamble. Just the JSON array.`;
+
+  const maxTokens = Math.min(8000, 200 + count * 220);
+  let res, text;
+
+  if (provider === "openrouter") {
+    const orModel = ($("modelName").value || "").trim() || "anthropic/claude-sonnet-4";
+    res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST", signal,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${apiKey}`,
+        "HTTP-Referer": location.origin,
+        "X-Title": "Chely AI"
+      },
+      body: JSON.stringify({ model: orModel, messages: [{ role: "user", content: prompt }], max_tokens: maxTokens })
+    });
+    if (!res.ok) {
+      const errText = await res.text();
+      let parsed; try { parsed = JSON.parse(errText); } catch(e) {}
+      throw new Error(parsed?.error?.message || `OpenRouter error (${res.status})`);
+    }
+    const data = await res.json();
+    text = data.choices?.[0]?.message?.content || "";
+  } else {
+    res = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST", signal,
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": apiKey,
+        "anthropic-version": "2023-06-01",
+        "anthropic-dangerous-direct-browser-access": "true"
+      },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: maxTokens,
+        messages: [{ role: "user", content: prompt }]
+      })
+    });
+    if (!res.ok) {
+      const errText = await res.text();
+      let parsed; try { parsed = JSON.parse(errText); } catch(e) {}
+      throw new Error(parsed?.error?.message || `Anthropic error (${res.status})`);
+    }
+    const data = await res.json();
+    text = (data.content || []).filter(b => b.type === "text").map(b => b.text).join("\n").trim();
+  }
+
+  let cleaned = text.replace(/^```json\s*/i, "").replace(/^```\s*/i, "").replace(/```\s*$/i, "").trim();
+  const start = cleaned.indexOf("[");
+  const end = cleaned.lastIndexOf("]");
+  if (start === -1 || end === -1) throw new Error("Couldn't find JSON in response.");
+  cleaned = cleaned.slice(start, end + 1);
+  const scenes = JSON.parse(cleaned);
+  if (!Array.isArray(scenes)) throw new Error("Response was not an array.");
+  return scenes;
+}
+
+function setProgress(done, total, sceneSoFar, sceneTotal) {
+  const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+  $("progressFill").style.width = pct + "%";
+  $("progressPct").textContent = pct + "%";
+  if (done < total) {
+    $("progressLabel").textContent = `Batch ${done + 1} of ${total} · ${sceneSoFar} of ${sceneTotal} scenes`;
+    $("progressFill").classList.add("shimmer");
+  } else {
+    $("progressLabel").textContent = `Complete · ${sceneTotal} scenes`;
+    $("progressFill").classList.remove("shimmer");
+  }
+}
+
+async function generate() {
+  clearError();
+  $("scenes").innerHTML = "";
+  currentScenes = [];
+
+  const apiKey = $("apiKey").value.trim();
+  const script = $("script").value.trim();
+  const total = clampCount($("count").value);
+
+  if (!apiKey) { showError("Enter your API key first."); return; }
+  if (script.length < 20) { showError("Script needs to be at least 20 characters."); return; }
+
+  const numBatches = Math.ceil(total / BATCH_SIZE);
+  const counts = distributeCount(total, numBatches);
+  const chunks = splitScript(script, numBatches);
+
+  $("resultsWrap").classList.remove("hidden");
+  $("sceneCount").textContent = "0";
+  $("progressWrap").classList.remove("hidden");
+  setProgress(0, numBatches, 0, total);
+
+  const runBtn = $("runBtn");
+  runBtn.disabled = true;
+  runBtn.innerHTML = '<span class="spinner"></span> DEVELOPING...';
+  $("stopBtn").classList.remove("hidden");
+
+  abortController = new AbortController();
+
+  const batchResults = new Array(numBatches).fill(null);
+  let nextToRender = 0;
+  let sceneSoFar = 0;
+  let completed = 0;
+
+  function flushReady() {
+    while (nextToRender < numBatches && batchResults[nextToRender] !== null) {
+      const scenes = batchResults[nextToRender];
+      if (scenes && scenes.length) {
+        appendScenes(scenes, currentScenes.length);
+        currentScenes.push(...scenes);
+        sceneSoFar = currentScenes.length;
+        $("sceneCount").textContent = sceneSoFar;
+      }
+      nextToRender++;
+    }
+  }
+
+  const tasks = chunks.map((chunk, i) => async () => {
+    const scenes = await generateBatch(apiKey, chunk, counts[i], i, numBatches, abortController.signal);
+    batchResults[i] = scenes;
+    completed++;
+    flushReady();
+    setProgress(completed, numBatches, sceneSoFar, total);
+    return scenes;
+  });
+
+  const results = await runWithConcurrency(tasks, CONCURRENCY, abortController.signal);
+  results.forEach((r, i) => { if (!r.ok && batchResults[i] === null) batchResults[i] = []; });
+  flushReady();
+
+  const failures = results.filter(r => !r.ok);
+  if (abortController.signal.aborted) {
+    $("progressLabel").textContent = `Stopped · ${currentScenes.length} of ${total} scenes`;
+    $("progressFill").classList.remove("shimmer");
+  } else if (failures.length) {
+    showError(`${failures.length} of ${numBatches} batch(es) failed. ${failures[0].error}`);
+    $("progressFill").classList.remove("shimmer");
+  } else {
+    setTimeout(() => $("progressWrap").classList.add("hidden"), 1200);
+  }
+
+  runBtn.disabled = false;
+  runBtn.innerHTML = "FIND FOOTAGE  →";
+  $("stopBtn").classList.add("hidden");
+  abortController = null;
+}
+
+function appendScenes(scenes, startingIndex) {
+  const container = $("scenes");
+  scenes.forEach((s, idx) => {
+    const i = startingIndex + idx;
+    const num = String(i + 1).padStart(2, "0");
+    const activeSites = selectedSites.length ? selectedSites : ["envato"];
+
+    const primaryBtns = activeSites.map(siteId => {
+      const url = buildSearchUrl(s.primarySearch, siteId);
+      const site = SITES.find(x => x.id === siteId);
+      return `<a class="scene-link" href="${url}" target="_blank" rel="noopener">${escapeHtml(site.label)} →</a>`;
+    }).join("");
+
+    const altBtns = s.altSearch ? activeSites.map(siteId => {
+      const url = buildSearchUrl(s.altSearch, siteId);
+      const site = SITES.find(x => x.id === siteId);
+      return `<a class="scene-link alt" href="${url}" target="_blank" rel="noopener">${escapeHtml(site.label)} →</a>`;
+    }).join("") : "";
+
+    const card = document.createElement("div");
+    card.className = "scene";
+    card.style.animationDelay = ((idx % 5) * 50) + "ms";
+    card.innerHTML = `
+      <div class="scene-grid">
+        <div class="scene-rail">
+          <div class="scene-num">${num}</div>
+          ${s.mood ? `<span class="scene-mood">${escapeHtml(s.mood)}</span>` : ""}
+        </div>
+        <div class="scene-body">
+          <div class="scene-caption">${escapeHtml(s.caption || "")}</div>
+          ${s.scriptSegment ? `<blockquote class="scene-quote">"${escapeHtml(s.scriptSegment)}"</blockquote>` : ""}
+          <div class="scene-keywords">
+            <span class="scene-row-label">keywords:</span>
+            <span class="tag">${escapeHtml(s.primarySearch || "")}</span>
+            ${s.altSearch ? `<span class="tag alt">alt: ${escapeHtml(s.altSearch)}</span>` : ""}
+          </div>
+          <div class="scene-row">
+            <span class="scene-row-label">primary:</span>
+            ${primaryBtns}
+          </div>
+          ${altBtns ? `<div class="scene-row"><span class="scene-row-label">alt:</span>${altBtns}</div>` : ""}
+        </div>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function copyAllUrls() {
+  const activeSites = selectedSites.length ? selectedSites : ["envato"];
+  const text = currentScenes.map((s, i) => {
+    const n = String(i + 1).padStart(2, "0");
+    const lines = [`SCENE ${n} — ${s.caption}`, `Keywords: ${s.primarySearch}${s.altSearch ? " / alt: " + s.altSearch : ""}`];
+    activeSites.forEach(siteId => {
+      const site = SITES.find(x => x.id === siteId);
+      lines.push(`  ${site.label.padEnd(10)} ${buildSearchUrl(s.primarySearch, siteId)}`);
+      if (s.altSearch) lines.push(`  ${(site.label + " alt").padEnd(10)} ${buildSearchUrl(s.altSearch, siteId)}`);
+    });
+    return lines.join("\n");
+  }).join("\n\n");
+  navigator.clipboard.writeText(text);
+  const btn = $("copyAllBtn");
+  const orig = btn.textContent;
+  btn.textContent = "✓ Copied";
+  setTimeout(() => btn.textContent = orig, 1600);
+}
+
+</script>
+</body>
+</html>
